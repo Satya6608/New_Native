@@ -1,11 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React,{useState, useEffect, useRef} from 'react';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
-export default function App() {
+const App = () => {
+ 
+  const textRef = useRef()
+  useEffect(() => {
+    return () => {
+      textRef.current.focus()
+    };
+  }, []) 
+
+  const [firstVar,setFirstVar] = useState('')
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text>Hello World {firstVar}</Text>
+      <TextInput
+      ref={ref=>{textRef.current=ref}}
+      value={firstVar}
+      onChangeText={(value)=>{
+        setFirstVar(value)
+      }}
+      style={styles.inputField}
+      />
+      <Button title='Click Me!'/>
     </View>
   );
 }
@@ -17,4 +34,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  inputField:{
+    width:100,
+    borderColor:'#000',
+    borderWidth: 1
+  }
 });
+
+export default App;
